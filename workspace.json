@@ -1,0 +1,7 @@
+{
+  "version": 2,
+  "projects": {
+    "repro": "packages/repro",
+    "repro-e2e": "e2e/repro-e2e"
+  }
+}

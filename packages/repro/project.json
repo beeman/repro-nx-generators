@@ -1,0 +1,56 @@
+{
+  "root": "packages/repro",
+  "sourceRoot": "packages/repro/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["packages/repro/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/packages/repro"],
+      "options": {
+        "jestConfig": "packages/repro/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "build": {
+      "executor": "@nrwl/node:package",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/repro",
+        "tsConfig": "packages/repro/tsconfig.lib.json",
+        "packageJson": "packages/repro/package.json",
+        "main": "packages/repro/src/index.ts",
+        "assets": [
+          "packages/repro/*.md",
+          {
+            "input": "./packages/repro/src",
+            "glob": "**/!(*.ts)",
+            "output": "./src"
+          },
+          {
+            "input": "./packages/repro/src",
+            "glob": "**/*.d.ts",
+            "output": "./src"
+          },
+          {
+            "input": "./packages/repro",
+            "glob": "generators.json",
+            "output": "."
+          },
+          {
+            "input": "./packages/repro",
+            "glob": "executors.json",
+            "output": "."
+          }
+        ]
+      }
+    }
+  },
+  "tags": []
+}
