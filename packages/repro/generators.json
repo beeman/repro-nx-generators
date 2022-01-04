@@ -7,6 +7,11 @@
       "factory": "./src/generators/repro/generator",
       "schema": "./src/generators/repro/schema.json",
       "description": "repro generator"
+    },
+    "ng-lib": {
+      "factory": "./src/generators/ng-lib/generator",
+      "schema": "./src/generators/ng-lib/schema.json",
+      "description": "ng-lib generator"
     }
   }
 }

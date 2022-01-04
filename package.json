@@ -12,6 +12,7 @@
     "tslib": "^2.0.0"
   },
   "devDependencies": {
+    "@nrwl/angular": "^13.4.3",
     "@nrwl/cli": "13.4.3",
     "@nrwl/devkit": "13.4.3",
     "@nrwl/eslint-plugin-nx": "13.4.3",

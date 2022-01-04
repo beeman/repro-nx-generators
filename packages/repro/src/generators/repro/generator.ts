@@ -1,14 +1,6 @@
-import {
-  addProjectConfiguration,
-  formatFiles,
-  generateFiles,
-  getWorkspaceLayout,
-  names,
-  offsetFromRoot,
-  Tree,
-} from '@nrwl/devkit';
-import * as path from 'path';
+import { getWorkspaceLayout, names, Tree } from '@nrwl/devkit';
 import { ReproGeneratorSchema } from './schema';
+import ngGenerator from '../ng-lib/generator';
 
 interface NormalizedSchema extends ReproGeneratorSchema {
   projectName: string;
@@ -37,37 +29,16 @@ function normalizeOptions(
     projectRoot,
     projectDirectory,
     parsedTags,
+    libs: options.libs || 1,
   };
-}
-
-function addFiles(tree: Tree, options: NormalizedSchema) {
-  const templateOptions = {
-    ...options,
-    ...names(options.name),
-    offsetFromRoot: offsetFromRoot(options.projectRoot),
-    template: '',
-  };
-  generateFiles(
-    tree,
-    path.join(__dirname, 'files'),
-    options.projectRoot,
-    templateOptions
-  );
 }
 
 export default async function (tree: Tree, options: ReproGeneratorSchema) {
   const normalizedOptions = normalizeOptions(tree, options);
-  addProjectConfiguration(tree, normalizedOptions.projectName, {
-    root: normalizedOptions.projectRoot,
-    projectType: 'library',
-    sourceRoot: `${normalizedOptions.projectRoot}/src`,
-    targets: {
-      build: {
-        executor: '@repro-nx-generators/repro:build',
-      },
-    },
-    tags: normalizedOptions.parsedTags,
-  });
-  addFiles(tree, normalizedOptions);
-  await formatFiles(tree);
+
+  console.log({ normalizedOptions });
+  for (let i = 0; i < normalizedOptions.libs; i++) {
+    console.log(`Create Lib ${i}`);
+    await ngGenerator(tree, { name: `${normalizedOptions.name}-num${i}` });
+  }
 }

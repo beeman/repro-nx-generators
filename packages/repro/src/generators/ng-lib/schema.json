@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/schema",
   "cli": "nx",
-  "$id": "Repro",
+  "$id": "NgLib",
   "title": "",
   "type": "object",
   "properties": {
@@ -14,16 +14,11 @@
       },
       "x-prompt": "What name would you like to use?"
     },
-    "libs": {
-      "type": "number",
-      "description": "Number of libs you want to generate",
-      "default": 1
-    },
     "tags": {
       "type": "string",
       "description": "Add tags to the project (used for linting)",
       "alias": "t"
-    },
+    }, 
     "directory": {
       "type": "string",
       "description": "A directory where the project is placed",
