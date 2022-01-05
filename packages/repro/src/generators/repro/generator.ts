@@ -33,12 +33,31 @@ function normalizeOptions(
   };
 }
 
+export function timeDiff(start: Date, end = new Date()) {
+  const diff = (start.getTime() - end.getTime()) / 1000;
+
+  return Math.abs(Math.round(diff));
+}
+
+export function logDate(d: Date = new Date()) {
+  return `${
+    d.getMonth() + 1
+  }/${d.getDate()}/${d.getFullYear()} ${d.getUTCHours()}:${d.getUTCMinutes()}:${d.getUTCSeconds()}`;
+}
+
+export function logEntry(message: string, startDate?: Date) {
+  console.log(
+    `[${logDate()}] ${message}`,
+    startDate ? ` -> Duration ${timeDiff(startDate)} seconds` : ''
+  );
+}
+
 export default async function (tree: Tree, options: ReproGeneratorSchema) {
   const normalizedOptions = normalizeOptions(tree, options);
-
-  console.log({ normalizedOptions });
+  const startTime = new Date();
+  logEntry('Starting');
   for (let i = 0; i < normalizedOptions.libs; i++) {
-    console.log(`Create Lib ${i}`);
+    logEntry(`Generating ${normalizedOptions.name} ${i}`, startTime);
     await ngGenerator(tree, { name: `${normalizedOptions.name}-num${i}` });
   }
 }
